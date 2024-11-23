@@ -72,17 +72,25 @@ function checkCollision() {
   // Check if the snake collides with itself
   for (let i = 1; i < snake.length; i++) {
     if (head.x === snake[i].x && head.y === snake[i].y) {
-      alert("Game Over!");
-      resetGame();
+      showGameOver();
       return true;
     }
   }
   return false;
 }
 
+function showGameOver() {
+  clearInterval(gameInterval); // Stop the game loop
+  const overlay = document.getElementById("game-over-overlay");
+  overlay.style.display = "flex"; // Show the overlay
+}
+
 // Reset the game
 function resetGame() {
   clearInterval(gameInterval);
+  const overlay = document.getElementById("game-over-overlay");
+  overlay.style.display = "none"; // Hide the overlay
+  isPaused = true;
   snake = [
     { x: 10, y: 10 },
     { x: 9, y: 10 },
@@ -96,6 +104,8 @@ function resetGame() {
   drawSnake();
   drawFood();
 }
+
+document.getElementById("restart-btn").addEventListener("click", resetGame);
 
 // Generate new food position
 function generateFood() {
