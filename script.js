@@ -127,9 +127,12 @@ function updateGame() {
 }
 
 // Start the game loop
+// Start the game loop with a slower speed
 function startGame() {
-  gameInterval = setInterval(updateGame, 200);
+  clearInterval(gameInterval); // Clear any existing interval
+  gameInterval = setInterval(updateGame, 300); // Increase interval to 500ms for slower movement
 }
+
 
 // Pause the game
 function pauseGame() {
@@ -143,6 +146,7 @@ function resumeGame() {
 
 // Event listeners for controls
 playButton.addEventListener("click", resumeGame);
+playButton.addEventListener("click", startGame);
 pauseButton.addEventListener("click", pauseGame);
 resetButton.addEventListener("click", resetGame);
 
